@@ -10,49 +10,38 @@ const options = [
 ];
 
 export default function InputTask(props) {
-  //el siguiente useState va a tener un objeto con todos los atributos que necesitare para manejar mis tareas
   const [task, setTask] = useState({
     idTask: "",
     taskName: "",
     categoryTask: "",
   });
-  //dentro del formulario asigno todos los valores que recolectare para actualizar mi estado
 
   const [error, setError] = useState(false);
-  //aca estamos haciendo un destructuring, todo lo que tiene props lo estoy dividiendo
+
   const { createTask } = props;
 
-  //recuperando datos del input
   const onChangeTask = (e) => {
     setTask({ ...task, [e.target.name]: e.target.value });
   };
 
-  //recuperando datos del selector
   const onChangeCategoryTask = (e, data) => {
     setTask({ ...task, [data.name]: data.value });
   };
 
-  //creando la funcion para el submit
   const onSubmitTask = (e) => {
-    // que no recarge la pagina
     e.preventDefault();
 
-    //validacion
     if (task.taskName.trim() === "") {
       setError(true);
       return;
     }
 
-    //eliminar el mensaje previo
     setError(false);
 
-    //asignar un ID
     task.idTask = uuidv4();
 
-    //crear la tarea
     createTask(task);
 
-    //limpiar los inputs
     setTask({
       idTask: "",
       taskName: "",
