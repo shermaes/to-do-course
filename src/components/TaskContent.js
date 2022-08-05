@@ -16,7 +16,7 @@ export default function TaskContent(props) {
       </Header>
       <Grid.Row>
         {tasks.map((task, index) => (
-            <Task task={task} key={index} deleteTask={deleteTask}/>
+          <Task task={task} key={index} deleteTask={deleteTask} />
         ))}
       </Grid.Row>
     </Grid>
