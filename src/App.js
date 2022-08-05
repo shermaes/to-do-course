@@ -4,10 +4,14 @@ import Header from './components/Header';
 import InputTask from './components/InputTask';
 
 function App() {
+  //esta funcion se la pasaremos por props a Input task para poder crear las tasks
+  const createTask = (task ) => {
+    console.log(task);
+  }
   return (
   <Container>
     <Header/>
-    <InputTask/>
+    <InputTask createTask={createTask}/>
   </Container>
   );
 }

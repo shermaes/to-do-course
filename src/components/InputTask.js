@@ -1,5 +1,6 @@
 import { Select, Input, Button, Grid, Header, Icon } from "semantic-ui-react";
 import { useState } from "react";
+import {v4 as uuidv4} from 'uuid'
 
 const options = [
   { key: "deporte", text: "Deporte", value: "deporte" },
@@ -8,7 +9,7 @@ const options = [
   { key: "otra", text: "Otra", value: "otra" },
 ];
 
-export default function InputTask() {
+export default function InputTask(props) {
   //el siguiente useState va a tener un objeto con todos los atributos que necesitare para manejar mis tareas
   const [task, setTask] = useState({
     idTask: "",
@@ -18,7 +19,8 @@ export default function InputTask() {
   //dentro del formulario asigno todos los valores que recolectare para actualizar mi estado
 
   const [error, setError] = useState(false);
-
+//aca estamos haciendo un destructuring, todo lo que tiene props lo estoy dividiendo
+  const {createTask} = props;
 
 //recuperando datos del input
   const onChangeTask = (e) => {
@@ -32,18 +34,33 @@ export default function InputTask() {
   };
   
  //creando la funcion para el submit
- const onSubmitTask = () => {
+ const onSubmitTask = (e) => {
+
    // que no recarge la pagina
+    e.preventDefault();
 
    //validacion
+    if(task.taskName.trim() === "" ){
+      setError(true);
+      return;
+    }
 
    //eliminar el mensaje previo 
+   setError(false);
 
    //asignar un ID
+    task.idTask= uuidv4();
 
    //crear la tarea 
+    createTask(task);
 
    //limpiar los inputs
+    setTask({
+      idTask: "",
+      taskName: "",
+      categoryTask: "",
+    })
+
  } 
 
 
